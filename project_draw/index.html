@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lottery Draw</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        p{ 
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        ul{
+            list-style-type: none;
+            padding: 0;
+        }
+        li{
+            font-size: 18px;
+            margin: 5px 0;
+        }
+        /* p태그는 뭐지? 이따가 검색해야지 */
+
+    </style>
+</head>
+<body>
+    <h1>Lottery Draw</h1>
+    <input type="text" id="itemInput" placeholder="Enter an item">
+    <button onclick="addItem()">Add Item</button>
+    <button onclick="draw()">Draw</button>
+    <ul id="itemList"></ul>
+    <p id="result"></p>
+
+    
+    <script>
+        //뽑기항목들을 배열
+        
+        let items =[];
+
+        function addItem(){
+            const itemInput = document.getElementById('itemInput');
+            const item = itemInput.value.trim();
+
+            if(item){
+                items.push(item);
+                updateItemList();
+                itemInput.value=''; // 입력 필드 초기화
+                itemInput.focus();
+            
+            }
+        }
+
+        function updateItemList() {
+            const itemList = document.getElementById('itemList');
+            itemList.innerHTML='';
+
+            items.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                itemList.appendChild(li);
+            });
+        }
+
+        function draw() {
+            if(items.length === 0) {
+                alert('Please add items before drawing.');
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random()*items.length);
+            const selectedItem = items[randomIndex];
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = `You got: ${selectedItem}`;
+
+
+        }
+
+    </script>
+
+
+</body>
+</html>
